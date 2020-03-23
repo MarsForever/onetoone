@@ -26,5 +26,24 @@ Route::get('/insert',function(){
 });
 
 Route::get('/update',function(){
-    
+    // method 1
+    // $address = Address::where('user_id',1)->first();
+    // method 2
+    // $address = Address::where('user_id','=','1')->first();
+   
+    // method 3
+    $address = Address::whereUserId(1)->first();
+
+    $address->name = "ofuna address name 3";
+    $address->save();
+});
+
+Route::get('/read', function(){
+    $user = User::findOrFail(2);
+    echo $user->address->name;
+});
+
+Route::get('/delete', function(){
+    $user = User::findOrFail(1);
+    $user->address()->delete();
 });
